@@ -19,8 +19,8 @@ app.post('/send_email', function (req, res) {
     {
       service: 'Sendgrid',
       auth: {
-        user: SENDER_EMAIL,
-        pass: SENDER_PASSWORD
+        user: SENDGRID_USERNAME,
+        pass: SENDGRID_PASSWORD
       }
     } :
     {
@@ -28,8 +28,8 @@ app.post('/send_email', function (req, res) {
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: SENDGRID_USERNAME,
-        pass: SENDGRID_PASSWORD,
+        user: SENDER_EMAIL,
+        pass: SENDER_PASSWORD,
       }
     }
 
