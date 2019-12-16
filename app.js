@@ -15,6 +15,10 @@ app.get('/test', (req, res) => {
   console.log("TEST");
   res.end()
 })
+app.get('/', (req, res) => {
+  res.send("TEST");
+  res.end()
+})
 app.post('/send_email', function (req, res) {
   const { SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL } = process.env;
 
@@ -24,7 +28,7 @@ app.post('/send_email', function (req, res) {
     secure: false, // true for 465, false for other ports
 
     auth: {
-      
+
         // should be replaced with real sender's account
         user: SENDER_EMAIL,
         pass: SENDER_PASSWORD
@@ -46,7 +50,7 @@ app.post('/send_email', function (req, res) {
   res.end();
 });
 
-let server = app.listen(4000, function(){
+let server = app.listen(process.env.PORT || 4000, function(){
   let port = server.address().port;
   console.log("Server started at http://localhost:%s", port);
 });
