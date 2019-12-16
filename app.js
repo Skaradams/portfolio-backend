@@ -33,12 +33,7 @@ app.post('/send_email', function (req, res) {
       }
     }
 
-  let transporter = nodeMailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: authentication
-  });
+  let transporter = nodeMailer.createTransport(config);
   let mailOptions = {
     // should be replaced with real recipient's account
     to: RECIPIENT_EMAIL,
