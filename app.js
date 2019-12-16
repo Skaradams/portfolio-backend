@@ -14,11 +14,11 @@ app.use(bodyParser.json());
 
 
 app.post('/send_email', function (req, res) {
-  const { SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL, auth } = process.env;
+  const { SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL, SENDGRID_USERNAME, SENDGRID_PASSWORD } = process.env;
   const authentication = process.env.NODE_ENV === 'production' ?
     {
-      user: auth.SENDGRID_USERNAME,
-      pass: auth.SENDGRID_PASSWORD,
+      user: SENDGRID_USERNAME,
+      pass: SENDGRID_PASSWORD,
     } :
     {
         user: SENDER_EMAIL,
