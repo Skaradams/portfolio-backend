@@ -15,14 +15,22 @@ app.use(bodyParser.json());
 
 app.post('/send_email', function (req, res) {
   const { SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL, SENDGRID_USERNAME, SENDGRID_PASSWORD } = process.env;
-  const authentication = process.env.NODE_ENV === 'production' ?
+  const config = process.env.NODE_ENV === 'production' ?
     {
-      user: SENDGRID_USERNAME,
-      pass: SENDGRID_PASSWORD,
-    } :
-    {
+      service: 'Sendgrid',
+      auth: {
         user: SENDER_EMAIL,
         pass: SENDER_PASSWORD
+      }
+    } :
+    {
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: SENDGRID_USERNAME,
+        pass: SENDGRID_PASSWORD,
+      }
     }
 
   let transporter = nodeMailer.createTransport({
