@@ -22,8 +22,9 @@ app.post('/send_email', function (req, res) {
     host: "smtp.ethereal.email",
     port: 587,
     secure: false, // true for 465, false for other ports
-    
+
     auth: {
+      
         // should be replaced with real sender's account
         user: SENDER_EMAIL,
         pass: SENDER_PASSWORD
