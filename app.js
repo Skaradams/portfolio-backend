@@ -36,6 +36,7 @@ app.post('/send_email', function (req, res) {
   let transporter = nodeMailer.createTransport(config);
   let mailOptions = {
     // should be replaced with real recipient's account
+    from: config.auth.user,
     to: RECIPIENT_EMAIL,
     subject: req.body.subject,
     text: req.body.message
