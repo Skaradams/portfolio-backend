@@ -11,28 +11,25 @@ app.use(express.static('src'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.get('/test', (req, res) => {
-  console.log("TEST");
-  res.end()
-})
-app.get('/', (req, res) => {
-  res.send("TEST");
-  res.end()
-})
+
+
 app.post('/send_email', function (req, res) {
-  const { SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL } = process.env;
+  const { SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL, auth } = process.env;
+  const authentication = process.env.NODE_ENV === 'production' ?
+    {
+      user: auth.SENDGRID_USERNAME,
+      pass: auth.SENDGRID_PASSWORD,
+    } :
+    {
+        user: SENDER_EMAIL,
+        pass: SENDER_PASSWORD
+    }
 
   let transporter = nodeMailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
     secure: false, // true for 465, false for other ports
-
-    auth: {
-
-        // should be replaced with real sender's account
-        user: SENDER_EMAIL,
-        pass: SENDER_PASSWORD
-    }
+    auth: authentication
   });
   let mailOptions = {
     // should be replaced with real recipient's account
