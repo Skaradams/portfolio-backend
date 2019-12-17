@@ -1,16 +1,18 @@
 require('dotenv').config();
+const helmet = require('helmet');
 
-let express = require("express"),
+const express = require("express"),
   path = require('path'),
   nodeMailer = require('nodemailer'),
   bodyParser = require('body-parser');
 
-let app = express();
+const app = express();
 
 app.use(express.static('src'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(helmet());
 
 
 app.post('/send_email', function (req, res) {
@@ -33,12 +35,13 @@ app.post('/send_email', function (req, res) {
       }
     }
 
+
   let transporter = nodeMailer.createTransport(config);
   let mailOptions = {
     // should be replaced with real recipient's account
     from: config.auth.user,
     to: RECIPIENT_EMAIL,
-    subject: req.body.subject,
+    subject: `[PORTFOLIO] ${ req.body.subject }`,
     text: req.body.message
   };
   transporter.sendMail(mailOptions, (error, info) => {
