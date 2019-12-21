@@ -1,5 +1,6 @@
 require('dotenv').config();
 const helmet = require('helmet');
+const cors = require('cors')
 
 const express = require("express"),
   path = require('path'),
@@ -13,7 +14,15 @@ app.use(express.static('src'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(helmet());
+app.use(cors());
 
+// app.use((req, res) => {
+//   // const origin = process.env.NODE_ENV === 'production' ?
+//   //   'https://dc-portfolio-backend.herokuapp.com' :
+//   //   'http://localhost:3000'
+//   // res.setHeader('Access-Control-Allow-Origin', origin);
+//   // res.setHeader('Access-Control-Allow-Methods', 'POST');
+// })
 
 app.post('/send_email', function (req, res) {
   const { SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL, SENDGRID_USERNAME, SENDGRID_PASSWORD } = process.env;

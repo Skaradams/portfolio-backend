@@ -18,10 +18,11 @@
   },
   "homepage": "https://github.com/Skaradams/portfolio-backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "nodemailer": "^6.4.2",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.2"
   }
 }
